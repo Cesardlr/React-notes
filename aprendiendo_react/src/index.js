@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
 // Aqui en este de usestate es para poder ver el estado de la alicacion
 import ReactDOM from 'react-dom';
@@ -6,6 +6,8 @@ import Usuario from './componentes/Usuario'
 import FormularioIncioSesion from './componentes/FormularioInicioSesion'
 
 import ContadorClass from './componentes/ContadorClass'
+import ContadorFuncional from './componentes/ContadorClassFuncional'
+import './index.css'
 
 // Aqui estoy importando desde la carpeta esa a ese componente de usuario
 
@@ -155,52 +157,50 @@ import ContadorClass from './componentes/ContadorClass'
 
 
 // Aqui se borro lo de JSX para poder hacer el componente de app que contendra demas componentes
-const App = () =>{
-  
-    // Aqui por ejemplo se supone que cuando se le de click a el boton con este evento, lo que pasa aqui es que cuando se cambia eso a false no pasaria nada
+const App = () => {
 
-    // Por lo que  si se quiere eso, se tiene que ver los:
-    // ESTADOS DE LA APLICACION:
-    // ¿QUE SON LOS ESTADOS DE LA APLICACION?
-    // Esto permite administrar en que parte estas de u aplicacion
+  // Aqui por ejemplo se supone que cuando se le de click a el boton con este evento, lo que pasa aqui es que cuando se cambia eso a false no pasaria nada
 
-    const [sesion,cambiarEstadoSesion] = useState(true);
+  // Por lo que  si se quiere eso, se tiene que ver los:
+  // ESTADOS DE LA APLICACION:
+  // ¿QUE SON LOS ESTADOS DE LA APLICACION?
+  // Esto permite administrar en que parte estas de u aplicacion
 
-    // Asi se forman los estados en react, el primer parametro fue el nombre de la sesion y el segundo es la funcionq ue se usara para cambiar el estado de esta, y despues el estaodo que va igual en el estado
+  const [sesion, cambiarEstadoSesion] = useState(true);
+
+  // Asi se forman los estados en react, el primer parametro fue el nombre de la sesion y el segundo es la funcionq ue se usara para cambiar el estado de esta, y despues el estaodo que va igual en el estado
 
   return (
-    <>
-  {sesion === true ? 
-  <>
-  <Usuario />
-  <ContadorClass />
-  <button onClick={()=> cambiarEstadoSesion(false)}>Cerrar sesion</button>
-  {/* Asi es como se pone el eventopara cambiar el estado del componente */}
+    <div className="contenedor">
+      {sesion === true ?
+        <>
+          <Usuario />
+          <ContadorFuncional CI={3} CD={1}/>
+          <button onClick={() => cambiarEstadoSesion(false)}>Cerrar sesion</button>
+          {/* Asi es como se pone el eventopara cambiar el estado del componente */}
 
-  {/* ASI SE PONEN EVENTOS A LOS BOTONES EN REACT */}
+          {/* ASI SE PONEN EVENTOS A LOS BOTONES EN REACT */}
 
 
-  {/* Los componentes se ponen como si fueran html  */}
-  {/* Y ya apartir de aqui pudes poner los que quieras son como pedazos de codigos */}
-  </>
-  
-  : 
-  <>
-  <p>No has inicado sesion</p>
-  <FormularioIncioSesion cambiarEstadoSesion={cambiarEstadoSesion}/>
-  {/* En este le meti esa propiedad de cambiarEstadoSesion como propiedad, para asi poder modificarlo en el componente del formulario */}
+          {/* Los componentes se ponen como si fueran html  */}
+          {/* Y ya apartir de aqui pudes poner los que quieras son como pedazos de codigos */}
+        </>
 
-  {/* <button onClick={()=> cambiarEstadoSesion(true)}>Inciar sesion</button> */}
-  </>
+        :
+        <>
+         
+          <FormularioIncioSesion cambiarEstadoSesion={cambiarEstadoSesion} />
+          {/* En este le meti esa propiedad de cambiarEstadoSesion como propiedad, para asi poder modificarlo en el componente del formulario */}
+        </>
 
-  }
-  </>
-)
+      }
+    </div>
+  )
 }
 
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
-  
+
 // ESTE DE ROOT ESTA EN LA CARPETA PUBLIC EN EL ARCHIVO HTML
 

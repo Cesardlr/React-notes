@@ -12,6 +12,31 @@ class Contador extends Component{
         // Asi se ponia el estado antes
     }
 
+    componentDidMount(){
+         console.log('el componente se cargo en el dom')
+
+        //  ... LLAMAMOS A LA API ...
+    }
+
+    // ESTE SIRVE PARA PODER CHECAR CUANDO SE CARAGA EL COMPONENTE DENTRO DEL DOM, Y PUEDE SERVIR PARA QUE CADA QUE PASE ESO SE CARGUEN APIS O ALGO ASI
+
+
+    componentDidUpdate(propiedadesAnteriores,estadoAnterior){
+        console.log('el componente se actualizo!');
+        console.log('propiedades anteriores', propiedadesAnteriores)
+        console.log('estadoAnterior', estadoAnterior)
+    }
+
+    // Este comprueba cada vez que un componente se vuelve a renderizar por que su estaod cambio, aqui en este caos se ejecutaria cada que se incremente o reste un numero, y podemos saber que estado teniamos y eso antes
+
+
+
+    componentWillUnmount(){
+        alert('segurp que quieres salir?')
+        // ... ACABAR LLAMADA DE API ...
+    }
+
+    // Este se ejecutara cada vez que se quiera eliminar al componente, por ejemplo aqui se ejecutaria cuando se le de al boton de cerrar sesion por que se le estaeria  quitando el componente este de el index, sirve para terminar llamadas de apis si ya se inciio una al entrar al componente
 
 
     incrementar(cantidad){

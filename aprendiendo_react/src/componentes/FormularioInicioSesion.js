@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './FormularioInicioSesion.module.css'
 
 const FormularioIncioSesion = (props) => {
     const [usuario, cambiarUsuario] = useState('');
@@ -39,17 +40,17 @@ const FormularioIncioSesion = (props) => {
 
 
     return (
-        <form action="" onSubmit={onSubmit}>
-            <p>Usuario: {usuario}</p>
-            <p>Contraseña:{password}</p>
+        <form className={styles.formulario} onSubmit={onSubmit}>
+             <h1>No has inicado sesion</h1>
             <div>
-                <label htmlFor="usuario">Usuario</label>
+                <label htmlFor="usuario" className={styles.label}>Usuario</label>
                 <input
                     type="text"
                     name="usuario"
                     id="usuario"
                     value={usuario}
                     onChange={  onChange}
+                    className={styles.input}
                     // Este de onChange lo que hace es que por cada cambio que pase en el input lo registratrara
 
                         // Bueno aqui lo que estamos haciendo es que estamos pasandole un parametro llamado e, a este evento y luego entramos a su target y a su value, para que el useState de usuario sea igual a el valor que se este escribiendo para que en el label de usuario se escriba el usuario que esta siendo introducido
@@ -57,16 +58,17 @@ const FormularioIncioSesion = (props) => {
                 {/* Aqui se le puso el mismo id y htmlFor allabel y al input para poder conectarlos */}
             </div>
             <div>
-                <label htmlFor="password">Contraseña</label>
+                <label htmlFor="password" className={styles.label}>Contraseña</label>
                 <input
                     type="password"
                     name="password"
                     id="password"
                     value={password} 
                     onChange={onChange}
+                    className={styles.input}
                     />
             </div>
-            <button type="submit">Iniciar sesion</button>
+            <button type="submit" className={styles.boton}>Iniciar sesion</button>
         </form>
     );
 }
