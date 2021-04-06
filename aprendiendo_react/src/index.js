@@ -8,7 +8,9 @@ import FormularioIncioSesion from './componentes/FormularioInicioSesion'
 import ContadorClass from './componentes/ContadorClass'
 import ContadorFuncional from './componentes/ContadorClassFuncional'
 import './index.css'
-
+import Boton from './elementos/Boton'
+import EjemploUseReducer from './componentes/EjemploUseReducer'
+import Blog from './componentes/Blog'
 // Aqui estoy importando desde la carpeta esa a ese componente de usuario
 
 
@@ -175,8 +177,17 @@ const App = () => {
       {sesion === true ?
         <>
           <Usuario />
-          <ContadorFuncional CI={3} CD={1}/>
-          <button onClick={() => cambiarEstadoSesion(false)}>Cerrar sesion</button>
+          <Blog />
+          < EjemploUseReducer/>
+          {/* <ContadorFuncional CI={3} CD={1}/> */}
+
+          {/* <button onClick={() => cambiarEstadoSesion(false)}>Cerrar sesion</button> */}
+          {/* Sin styled components */}
+
+          <Boton largo marginTop onClick={() => cambiarEstadoSesion(false)}> Cerrar sesion </Boton>
+          {/* Con styled components */}
+          
+          
           {/* Asi es como se pone el eventopara cambiar el estado del componente */}
 
           {/* ASI SE PONEN EVENTOS A LOS BOTONES EN REACT */}

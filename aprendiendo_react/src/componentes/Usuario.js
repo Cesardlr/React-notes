@@ -1,5 +1,6 @@
 import React from 'react';
 import { Titulo} from './titulo'
+import styled from 'styled-components'
 
 // Asi se tiene que poner si hay mas de un componente en el archivo
 
@@ -24,16 +25,23 @@ const Usuario = () => {
 
             {/* Este es un componente dentro de otro componente de JSX */}
 
-            <p>Tu lista de amigos es:</p>
+            <Parrafo>Tu lista de amigos es:</Parrafo>
             {pais && <p>Tu eres de: {pais}</p>}
             <ul>
                 {amigos.map((amigo, index) => <li key={index}> {amigo} </li>)}
             </ul>
 
-            <p>Que tengas un buen dia saludos!</p>
+            <Parrafo>Que tengas un buen dia saludos!</Parrafo>
         </div>
     );
 };
+
+// Asi se hacen los styled components
+
+const Parrafo = styled.p`
+margin-bottom:20px 0;
+background:#4e4;
+`
 
 export default Usuario;
 
