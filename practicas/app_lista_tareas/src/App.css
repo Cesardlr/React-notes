@@ -1,6 +1,6 @@
 :root {
-	--verde: #80BE4E;
-	--azul: #007AEA;
+	--gris: #3b3a3a;
+	--rojo: #ee3e09;
 }
 
 .contenedor {
@@ -24,7 +24,7 @@
 	justify-content: space-between;
 	height: 60px;
 	padding: 0 20px;
-	background: var(--azul);
+	background: var(--rojo);
 	color: #fff;
 	border-radius: 3px 3px 0px 0px;
 }
@@ -37,10 +37,10 @@
 .header__boton {
 	background: none;
 	font-size: 16px;
-	color: #fff;
+	color: rgb(0, 0, 0);
 	border: none;
 	cursor: pointer;
-	background: #004c92;
+	background: #ffffff;
 	padding: 5px 10px;
 	border-radius: 3px;
 	display: flex;
@@ -50,4 +50,135 @@
 .header__icono-boton {
 	font-size: 14px;
 	margin-left: 10px;
+}
+
+/* * --- --- ---  FORMULARIO AGREGAR --- --- --- */
+.formulario-tareas {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	padding: 20px;
+	box-shadow: 0 2px 10px rgba(139,139,139,.25);
+}
+
+.formulario-tareas__input {
+	border: none;
+	padding: 15px;
+	width: 100%;
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	border-bottom: 2px solid #b8b8b8;
+}
+
+.formulario-tareas__input:focus {
+	outline: none;
+	border-bottom: 2px solid var(--rojo);
+}
+
+.formulario-tareas__btn {
+	position: absolute;
+	bottom: 40px;
+	right: 20px;
+	border: none;
+	text-decoration: none;
+	outline:none;
+}
+
+.formulario-tareas__icono-btn:hover{
+	cursor: pointer;
+}
+
+.formulario-tareas__icono-btn {
+	background-color: transparent;
+	font-size: 22px;
+	color: var(--gris);
+	outline:none;
+}
+
+
+/* * --- --- ---  LISTA TAREAS --- --- --- */
+
+.lista-tareas {
+	list-style: none;
+	height: 100%;
+	overflow: auto;
+}
+
+.lista-tareas__tarea {
+	height: 60px;
+	padding: 0 20px;
+	align-items: center;
+	color: #ffffff;
+	font-size: 18px;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	background: #ff4040;
+}
+
+.lista-tareas__texto {
+	text-align: left;
+	width: 100%;
+}
+
+.lista-tareas__tarea:hover .lista-tareas__icono-accion {
+	opacity: 0.5;
+}
+
+.lista-tareas__tarea:nth-child(even) {
+	background: #ff7676;
+}
+
+.lista-tareas__contenedor-botones {
+	display: flex;
+}
+
+.lista-tareas__icono {
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.lista-tareas__icono-check {
+	margin-right: 20px;
+	font-size: 26px;
+}
+
+.lista-tareas__icono-accion {
+	margin-left: 20px;
+	opacity: 0;
+	transition: .3s ease all;
+}
+
+.lista-tareas__mensaje {
+	text-align: center;
+	color: #b8b8b8;
+	font-size: 20px;
+	padding: 40px 20px;
+}
+
+
+/* * --- --- ---  FORMULARIO EDITAR TAREA --- --- --- */
+.formulario-editar-tarea {
+	display: flex;
+}
+
+.formulario-editar-tarea__input {
+	width: 100%;
+	border: none;
+	border-bottom: 2px solid #b8b8b8;
+	background: none;
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	margin-right: 20px;
+	color:#fff;
+}
+
+.formulario-editar-tarea__btn {
+	border: none;
+	background: var(--gris);
+	cursor: pointer;
+	color: #fff;
+	padding: 0 10px;
+	font-family: 'Roboto', sans-serif;
+	border-radius: 3px;
 }
