@@ -1,13 +1,15 @@
 import React from 'react'
+import Productos from './Productos'
 
 
-const Tienda = () => {
-    return ( 
+// Recibiendo los productos en la tienda
+const Tienda = ({productos,agregarProductoAlCarrito}) => {
+    return (
         <div>
             <h1>Tienda</h1>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat voluptates dicta ducimus omnis officiis neque in? Nisi nostrum, blanditiis cum doloremque est exercitationem assumenda, soluta dolor voluptate maxime saepe voluptas.</p>
+            <Productos productos={productos} agregarProductoAlCarrito={agregarProductoAlCarrito}/>
         </div>
-     );
+    );
 }
- 
+
 export default Tienda;
