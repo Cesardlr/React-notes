@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 // Esto es lo que va a conectar los productso del componente de tiendaReducer.js
 
 // Aqui se vuelven a recibir los prodctos
-const Productos = ({productos,agregarProductoAlCarrito}) => {
+const Productos = ({productos, agregarProductoAlCarrito}) => {
 
     // Esto seria como la base de datos de los productos
 
@@ -73,4 +73,21 @@ const mapStateToProps = (estado)=>{
     }
     // esta funcion es la que le va a inyectar las propiedades que queremos a este archivo, aqui es cuando realmente se pasan los datos
 }
-export default connect(mapStateToProps)(Productos);
+
+
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        agregarProductoAlCarrito: (idProductoAAgregar, nombre)=>{
+            dispatch(
+                {
+                    type:'AGREGAR_PRODUCTO_AL_CARRITO',
+                    idProductoAAgregar: idProductoAAgregar,
+                    nombre: nombre
+                }
+                );
+        }
+        // Con este dispatch, lo que hacemos es que estamos enviando una accion al reducer
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Productos);
