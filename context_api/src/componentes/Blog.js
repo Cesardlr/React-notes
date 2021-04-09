@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
+// El hook useContext sirve para poder acceder a un contexto
 import posts from './../data/posts'
 import {Link} from 'react-router-dom';
+import {ContextoTema} from './../contextos/contextoTema'
+import Controles from './Controles';
 
 const Blog = () => {
+
+    // Esto sirve para saber cual es el contexto
+
+    // EJEMPLO:
+    // const hola = useContext(ContextoTema)
+    // console.log(hola)
+
     return (
             <div>
                 <h2>blog</h2>
@@ -16,6 +26,7 @@ const Blog = () => {
                         )
                     })}
                 </ul>
+                <Controles />
             </div>
     );
 }

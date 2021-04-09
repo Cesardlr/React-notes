@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 // Este es el componente padre dentro de la aplicacion que contiene las rutas
@@ -9,14 +9,20 @@ import Blog from './componentes/Blog'
 import Post from './componentes/Post'
 import AcercaDe from './componentes/AcercaDe'
 import Error404 from './componentes/Error404';
+import {ContextoTema} from './contextos/contextoTema'
 
 const App = () => {
+
+  // Aqui conectamos el contexto a este archivo guardandolo en la constante tema, extrayendolo por eso se pone entre corchetes
+  const {tema} = useContext(ContextoTema);
+
   return (
     <BrowserRouter>
       <ContenedorPrincipal>
         <Header />
         
-        <Main>
+        {/* Le pasamos al main lo del tema, para poder que funcione al añadir los estilos asi */}
+        <Main tema={tema}>
     {/* Aqui a este se le puso exact para que solo te enviara a inicio si esta en nada mas en la direccion "/" por que si no las demas tambien lo tienen y se muestra ahi tambien */ }
         
           <Switch>
@@ -47,6 +53,9 @@ const ContenedorPrincipal = styled.div`
 `
 
 const Main = styled.main`
+  /* Aqui hice un condicional, entrando a las props del main, viendo si tenia tema, si si ps se ponia la fuente de ahi si no 16px */
+  font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'};
+  text-align: ${props => props.tema ? props.tema.alineado : 'right'};
   background: #fff;
   padding:40px;
   border-radius:10px;
