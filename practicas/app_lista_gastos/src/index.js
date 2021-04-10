@@ -10,6 +10,9 @@ import EditarGasto from './componentes/EditarGasto'
 import GastosPorCategoria from './componentes/GastosPorCategoria'
 import RegistroUsuarios from './componentes/RegistroUsuarios'
 import ListaDeGastos from './componentes/ListaDeGastos'
+import {Helmet} from 'react-helmet'
+import favicon from './imagenes/logo.png'
+import Fondo from './elementos/Fondo'
 
 WebFont.load({
 
@@ -22,6 +25,17 @@ WebFont.load({
 
 const Index = () => {
   return(
+  <>
+  {/* Helmet sirve para poder poner todo como si fueramos a hacer una pagina web con html
+  COSAS COMO:
+  -Title
+  -meta viewports
+  -links, etc
+  */}
+    <Helmet>
+      <link rel="shortcut icon"  href={favicon} type="image/x-icon"/>
+    </Helmet>
+
     <BrowserRouter>
       <Contenedor>
         <Switch>
@@ -34,6 +48,9 @@ const Index = () => {
         </Switch>
       </Contenedor>
     </BrowserRouter>
+
+    <Fondo />
+  </>
   );
 };
 
