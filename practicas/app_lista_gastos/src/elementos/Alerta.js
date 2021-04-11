@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 import theme from './../theme'
 
@@ -54,3 +54,31 @@ const ContenedorAlerta = styled.div`
     }
 `;
 
+
+const Alerta = ({tipo,mensaje, estadoAlerta, cambiarEstadoAlerta}) => {
+    useEffect(() => {
+        let tiempo;
+        if(estadoAlerta === true){
+            tiempo = setTimeout(()=>{
+                cambiarEstadoAlerta(false)
+            }, 4000)
+        }
+
+        // Aqui estnaos limpiando el effect, esto pasa cuando el component se desmonta
+        // Limpiamos el tiempo  para que no trate de cambiar el estado y que el componente no este en pantall
+        // eSO ES PARA  QUE NO SALGAN ERRORES en pantalla si lo intenta cambiar el estado
+        return(()=> clearTimeout(tiempo))
+    }, [estadoAlerta, cambiarEstadoAlerta])
+
+    return ( 
+        <>
+            {estadoAlerta &&
+                <ContenedorAlerta tipo={tipo}>
+                    <p>{mensaje}</p>
+                </ContenedorAlerta>
+            }
+        </>
+    );
+}
+ 
+export default Alerta;

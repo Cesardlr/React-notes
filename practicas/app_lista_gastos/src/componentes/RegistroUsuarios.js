@@ -5,10 +5,11 @@ import Boton from './../elementos/Boton'
 import {Formulario,Input,ContenedorBoton} from './../elementos/ElementosDeFormulario'
 import {auth} from './../firebase/firebaseConfig'
 import {useHistory} from 'react-router-dom'
-
 // Asi importamos una imagen svg
 import {ReactComponent as SvgLogin} from './../imagenes/registro.svg'
 import styled from 'styled-components';
+import Alerta from './../elementos/Alerta'
+
 
 const Svg = styled(SvgLogin)`
     width:100%;
@@ -22,6 +23,8 @@ const RegistroUsuarios = () => {
     const [correo, establecerCorreo] = useState('')
     const [password, establecerPassword] = useState('')
     const [password2, establecerPassword2] = useState('')
+    const [estadoAlerta, cambiarEstadoAlerta] = useState(false)
+    const [alerta, cambiarAlerta] = useState({})
 
     const handleChange = (e)=>{
         // Aqui vamos a ver cual es el name del input y dependiendo de ese name, vamos  a ejecutar la respectiva funcion para cambiar el estado
@@ -48,25 +51,40 @@ const RegistroUsuarios = () => {
     const handleSubmit = async(e)=>{
         e.preventDefault()
 
+        // verificamos si la alerta esta oculta y el mensaje tambien
+        cambiarEstadoAlerta(false)
+        cambiarAlerta({})
+
+
         // Hacemos una pequeña validacion con expresiones regulares
         const expresionRegular = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
-
-
         // Aqui viendo en un condcional si se esta incumpliendo el test, osea que si correo no coincide con la expreisonRegular
         if( !expresionRegular.test(correo)){
-            console.log('no es un correo valido')
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'Por favor ingrese un correo electronico valido'
+            })
             return;
         }
 
         // Condicional ver si tiene ntexto
         if(correo === '' || password === '' || password2 === ''){
-            console.log('por favor rellena los datos')
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'por favor rellena los datos'
+            })
             return
         }
 
         // Condicioinal contraseñas iguales
         if(password !== password2){
-            console.log('las contraseñas si coinciden')
+            cambiarEstadoAlerta(true);
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:'las contraseñas no coinciden'
+            })
             return;
         }
 
@@ -81,6 +99,7 @@ const RegistroUsuarios = () => {
         //con useHistory Lo enviaremos a la pagina de inciio cuando termine de crear su cuenta
         }
         catch(error){
+            cambiarEstadoAlerta(true)
             let mensaje;
 
             // Aqui estamos entrando al .code del error, que es un codigo que envia directamente firebase para cad auno de los casos, y nosotros cambiaremos uno de esos mensajes para personalizarlos
@@ -98,7 +117,10 @@ const RegistroUsuarios = () => {
                     mensaje = 'Hubo un error al intentar crear la cuenta.'
                 break;
             }
-            console.log(mensaje)
+            cambiarAlerta({
+                tipo:'error',
+                mensaje:mensaje
+            })
         }
     }
 
@@ -148,6 +170,12 @@ const RegistroUsuarios = () => {
                 <Boton as="button" primario type="submit">Crear Cuenta</Boton>
                 </ContenedorBoton>
             </Formulario>
+            <Alerta 
+                tipo={alerta.tipo}
+                mensaje={alerta.mensaje}
+                estadoAlerta={estadoAlerta}
+                cambiarEstadoAlerta={cambiarEstadoAlerta}
+            />
         </>
     );
 }
