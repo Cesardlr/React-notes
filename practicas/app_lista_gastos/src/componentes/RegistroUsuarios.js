@@ -3,6 +3,8 @@ import {Helmet} from 'react-helmet'
 import {Header, Titulo, ContenedorHeader} from './../elementos/Header'
 import Boton from './../elementos/Boton'
 import {Formulario,Input,ContenedorBoton} from './../elementos/ElementosDeFormulario'
+import {auth} from './../firebase/firebaseConfig'
+import {useHistory} from 'react-router-dom'
 
 // Asi importamos una imagen svg
 import {ReactComponent as SvgLogin} from './../imagenes/registro.svg'
@@ -16,6 +18,7 @@ const Svg = styled(SvgLogin)`
 
 
 const RegistroUsuarios = () => {
+    const history = useHistory()
     const [correo, establecerCorreo] = useState('')
     const [password, establecerPassword] = useState('')
     const [password2, establecerPassword2] = useState('')
@@ -25,13 +28,13 @@ const RegistroUsuarios = () => {
 
         switch (e.target.name) {
             case 'email':
-                establecerCorreo()
+                establecerCorreo(e.target.value)
                 break;
             case 'password':
-                establecerPassword()
+                establecerPassword(e.target.value)
                 break;
             case 'password2':
-                establecerPassword2()
+                establecerPassword2(e.target.value)
                 break;
         
             default:
@@ -39,13 +42,16 @@ const RegistroUsuarios = () => {
         }
     }
 
-    const handleSubmit = (e)=>{
+
+
+    // Esta sera una funcion asincrona
+    const handleSubmit = async(e)=>{
         e.preventDefault()
 
         // Hacemos una pequeña validacion con expresiones regulares
         const expresionRegular = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
 
-        
+
         // Aqui viendo en un condcional si se esta incumpliendo el test, osea que si correo no coincide con la expreisonRegular
         if( !expresionRegular.test(correo)){
             console.log('no es un correo valido')
@@ -64,6 +70,36 @@ const RegistroUsuarios = () => {
             return;
         }
 
+        // Creando usuario luego de todos los condicionales
+
+        try{
+            // Esto crea un usuarip con correo y contraseña, con el auth de firebase
+            // Usamos await por que es una asincrona, y esperaremos a que esto termine
+            // Para poder enviar a la persona a la paginja de inciio
+           await auth.createUserWithEmailAndPassword(correo,password)
+           history.push('/')
+        //con useHistory Lo enviaremos a la pagina de inciio cuando termine de crear su cuenta
+        }
+        catch(error){
+            let mensaje;
+
+            // Aqui estamos entrando al .code del error, que es un codigo que envia directamente firebase para cad auno de los casos, y nosotros cambiaremos uno de esos mensajes para personalizarlos
+            switch(error.code){
+                case 'auth/invalid-password':
+                    mensaje = 'La contraseña tiene que ser de al menos 6 caracteres.'
+                    break;
+                case 'auth/email-already-in-use':
+                    mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
+                break;
+                case 'auth/invalid-email':
+                    mensaje = 'El correo electrónico no es válido.'
+                break;
+                default:
+                    mensaje = 'Hubo un error al intentar crear la cuenta.'
+                break;
+            }
+            console.log(mensaje)
+        }
     }
 
     return (
@@ -94,7 +130,7 @@ const RegistroUsuarios = () => {
 
                 <Input 
                     type="password"
-                    name="passwrod"
+                    name="password"
                     placeholder="Contraseña"
                     value={password}
                     onChange={handleChange}
@@ -102,7 +138,7 @@ const RegistroUsuarios = () => {
 
                 <Input 
                     type="password"
-                    name="passwrod2"
+                    name="password2"
                     placeholder="Verifique la contraseña"
                     value={password2}
                     onChange={handleChange}
