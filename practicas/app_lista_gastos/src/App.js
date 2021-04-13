@@ -3,6 +3,8 @@ import {Helmet} from 'react-helmet'
 import {Header, Titulo, ContenedorBotones, ContenedorHeader} from './elementos/Header'
 import Boton from './elementos/Boton'
 import BotonCerrarSesion from './elementos/BotonCerrarSesion'
+import FormularioGasto from './componentes/FormularioGasto'
+import { Formulario } from './elementos/ElementosDeFormulario'
 
 const App = () => {
     return ( 
@@ -21,6 +23,8 @@ const App = () => {
                     </ContenedorBotones>
                 </ContenedorHeader>
             </Header>
+
+            <FormularioGasto />
         </>
     );
 }
